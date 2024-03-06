@@ -1,1 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
+/*Material Theme Settings*/
+
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+// Dark Theme
+$primary: mat.define-palette(mat.$purple-palette, $default: 500);
+$accent: mat.define-palette(mat.$green-palette, $default: 400);
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: $primary,
+      accent: $accent,
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+// Light Theme
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$deep-purple-palette),
+      accent: mat.define-palette(mat.$amber-palette),
+    ),
+  )
+);
+
+// Apply the dark theme by default
+@include mat.core-theme($dark-theme);
+@include mat.button-theme($dark-theme);
+@include mat.icon-theme($dark-theme);
+@include mat.card-theme($dark-theme);
+
+// Apply the light theme only when the user prefers light themes.
+@media (prefers-color-scheme: light) {
+  // Use the `-color` mixins to only apply color styles without reapplying the same
+  // typography and density styles.
+  @include mat.core-color($light-theme);
+  @include mat.button-color($light-theme);
+  @include mat.icon-color($light-theme);
+  @include mat.card-color($light-theme);
+}
+
+$foreground-text: mat.get-theme-color($dark-theme, primary ,text);
+
+/* Material Theming Ends*/
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+

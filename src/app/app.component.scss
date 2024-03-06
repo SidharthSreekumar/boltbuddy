@@ -1,0 +1,15 @@
+@use '../styles.scss';
+
+.example-spacer {
+    flex: 1 1 auto;
+}
+
+.lit-card {
+    width: 90%;
+    margin-inline: auto;
+    margin-top: 1rem;
+
+    &-title {
+        color: styles.$foreground-text;
+    }
+}
