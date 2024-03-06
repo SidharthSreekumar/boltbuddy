@@ -1,0 +1,25 @@
+<div class="lit-card">
+  <mat-card>
+    @if (isLoading) {
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    }
+    <mat-card-header>
+      <mat-card-title class="lit-card-title">Lightning Calculator</mat-card-title>
+      <mat-card-subtitle>Check how farm from you a lightning was struck!</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="lit-card-content">
+
+      </div>
+    </mat-card-content>
+    <mat-card-actions align="end" class="lit-card-actions">
+      @if (isLightning) {
+      <button mat-raised-button color="accent" (click)="startWaiting()">Lightning <mat-icon inline="true"
+          iconPositionEnd aria-label="Lightning icon">bolt</mat-icon></button>
+      } @else {
+      <button mat-raised-button color="primary">Thunderclap <mat-icon inline="true" iconPositionEnd
+          aria-label="Thunderclap icon">spatial_audio</mat-icon></button>
+      }
+    </mat-card-actions>
+  </mat-card>
+</div>

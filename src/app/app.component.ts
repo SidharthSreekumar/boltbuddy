@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -6,8 +6,9 @@ import { RouterOutlet } from '@angular/router';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 
+import { ThemeService } from './services/theme.service';
+import { LightningCardComponent } from './components/lightning-card/lightning-card.component';
 
 @Component({
   selector: 'app-root',
@@ -18,11 +19,19 @@ import { MatCardModule } from '@angular/material/card';
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
-    MatCardModule,
+    LightningCardComponent,
   ],
+  providers: [ThemeService],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  title = 'lightning';
+  isLightMode: boolean = false;
+
+  constructor(private themeService: ThemeService) {}
+
+  toggleTheme() {
+    this.isLightMode = !this.isLightMode;
+    this.themeService.isLightModeSignal.set(this.isLightMode);
+  }
 }

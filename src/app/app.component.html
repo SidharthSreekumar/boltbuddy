@@ -1,21 +1,16 @@
 <mat-toolbar class="lit-menu">
-  <button mat-icon-button color="primary" class="example-icon" aria-label="Example icon-button with menu icon">
+  <button mat-icon-button color="primary" class="menu-icon" aria-label="Menu button">
     <mat-icon color="primary">menu</mat-icon>
   </button>
   <span>Lightning App</span>
   <span class="example-spacer"></span>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>share</mat-icon>
+  <button mat-icon-button class="theme-icon" class="thunderclap-btn" (click)="toggleTheme()"
+    aria-label="Icon button that changes the theme">
+    @if (isLightMode) {
+    <mat-icon>dark_mode</mat-icon>
+    }@else {
+    <mat-icon>light_mode</mat-icon>
+    }
   </button>
 </mat-toolbar>
-
-<div class="lit-card">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title class="lit-card-title">Lightning Calculator</mat-card-title>
-    </mat-card-header>
-  </mat-card>
-</div>
+<app-lightning-card></app-lightning-card>
