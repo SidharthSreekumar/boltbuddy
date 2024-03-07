@@ -1,5 +1,11 @@
-@use '../styles.scss';
-
-.example-spacer {
+.lit-menu {
+  &-spacer {
     flex: 1 1 auto;
+  }
+
+  &-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
 }

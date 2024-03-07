@@ -5,14 +5,12 @@
 @include mat.core();
 
 // Dark Theme
-$primary: mat.define-palette(mat.$purple-palette, $default: 500);
-$accent: mat.define-palette(mat.$green-palette, $default: 400);
 
 $dark-theme: mat.define-dark-theme(
   (
     color: (
-      primary: $primary,
-      accent: $accent,
+      primary: mat.define-palette(mat.$amber-palette, $default: 500),
+      accent: mat.define-palette(mat.$green-palette, $default: 400),
     ),
     typography: mat.define-typography-config(),
     density: 0,
@@ -23,18 +21,19 @@ $dark-theme: mat.define-dark-theme(
 $light-theme: mat.define-light-theme(
   (
     color: (
-      primary: mat.define-palette(mat.$indigo-palette),
+      primary: mat.define-palette(mat.$green-palette),
       accent: mat.define-palette(mat.$amber-palette),
     ),
   )
 );
 
 // Apply the dark theme by default
-@include mat.core-theme($dark-theme);
-@include mat.button-theme($dark-theme);
+@include mat.core-color($dark-theme);
+@include mat.button-color($dark-theme);
 @include mat.toolbar-color($dark-theme);
-@include mat.icon-theme($dark-theme);
-@include mat.card-theme($dark-theme);
+@include mat.icon-color($dark-theme);
+@include mat.card-color($dark-theme);
+@include mat.progress-bar-color($dark-theme);
 
 // !TODO Add the @mixin (prefers-color-scheme: light) functionality
 // Apply the light theme only when the user prefers light themes.
@@ -46,6 +45,7 @@ $light-theme: mat.define-light-theme(
   @include mat.button-color($light-theme);
   @include mat.icon-color($light-theme);
   @include mat.card-color($light-theme);
+  @include mat.progress-bar-color($light-theme);
 }
 
 /* Material Theming Ends*/

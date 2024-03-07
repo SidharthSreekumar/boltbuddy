@@ -1,6 +1,6 @@
-# Lightning
+# Bolt⚡Buddy
 
-A PWA app that calculates the distance at which a lightning strikes based on the delay between the lightning and the thunder. 
+Bolt⚡Buddy is a PWA app that calculates the distance at which a lightning strikes based on the delay between the lightning and the thunder. 
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
 

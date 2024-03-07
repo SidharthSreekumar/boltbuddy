@@ -2,8 +2,10 @@
   <button mat-icon-button color="primary" class="menu-icon" aria-label="Menu button">
     <mat-icon color="primary">menu</mat-icon>
   </button>
-  <span>Lightning App</span>
-  <span class="example-spacer"></span>
+  <div class="lit-menu-title">
+    <span>Bolt</span><mat-icon aria-label="Lightning icon">bolt</mat-icon><span>Buddy</span>
+  </div>
+  <span class="lit-menu-spacer"></span>
   <button mat-icon-button class="theme-icon" class="thunderclap-btn" (click)="toggleTheme()"
     aria-label="Icon button that changes the theme">
     @if (isLightMode) {
