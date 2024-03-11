@@ -7,7 +7,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 
-import { ThemeService } from './services/theme.service';
+import { ThemeService } from './services/theme/theme.service';
 import { LightningCardComponent } from './components/lightning-card/lightning-card.component';
 
 @Component({
@@ -30,6 +30,11 @@ export class AppComponent {
 
   constructor(private themeService: ThemeService) {}
 
+  /**
+   * Toggle the theme
+   *
+   * @returns void
+   */
   toggleTheme() {
     this.isLightMode = !this.isLightMode;
     this.themeService.isLightModeSignal.set(this.isLightMode);

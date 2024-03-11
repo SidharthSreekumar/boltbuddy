@@ -3,6 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { LocationService } from '../../services/location/location.service';
 
 @Component({
   selector: 'app-lightning-card',
@@ -17,15 +18,28 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
   styleUrl: './lightning-card.component.scss',
 })
 export class LightningCardComponent {
-  isLightning: boolean = true;
-  isLoading: boolean = false;
+  isLightning: boolean = true; // true = lightning
+  isLoading: boolean = false; // true = waiting for calculation
 
+  constructor(private locationService: LocationService) {}
+
+  /**
+   * Start waiting for calculation
+   *
+   * Set the loading state to true, and the lightning state to false.
+   * After 3 seconds, set the loading state to false, and the lightning state to true.
+   *
+   * @returns void
+   */
   startWaiting() {
     this.isLoading = true;
     this.isLightning = false;
-    setTimeout(() => {
-      this.isLoading = false;
-      this.isLightning = true;
-    }, 3000);
+
+    this.locationService.getCurrentPosition().subscribe((position) => {
+      console.log(position);
+
+    });
+
+
   }
 }
