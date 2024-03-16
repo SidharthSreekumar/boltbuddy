@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
+import { LocationService } from '../location/location.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SoundService {
-  speedOfSoundInAir: number = 331.3;
-  kelvin: number = 273.15;
+  readonly speedOfSoundInAir: number = 331.3;
+  readonly kelvin: number = 273.15;
 
-  constructor() {}
+  constructor(private locationService: LocationService) {}
 
   /**
    * Calculate the speed of sound at a given temperature
@@ -20,11 +21,11 @@ export class SoundService {
    * @param temperature the temperature in degrees Celsius
    * @return the speed of sound at the given temperature in meters per second
    */
-  getSpeed(temperature: number) {
-    const kelvinTemp = temperature + this.kelvin; // temperature in Kelvin
-    const term = 1 + kelvinTemp / this.kelvin; // temperature normalized to 0 degrees Celsius
-    const speed = this.speedOfSoundInAir * Math.sqrt(term); // meters per second
+  getSpeed() {
+    let currentTemperature: number = Number(this.locationService.currentTemperature());
+    let kelvinTemp: number = currentTemperature + this.kelvin; // temperature in Kelvin
+    let term = (1 + kelvinTemp) / this.kelvin; // temperature normalized to 0 degrees Celsius
+    let speed = this.speedOfSoundInAir * Math.sqrt(term); // meters per second
     return speed;
   }
 }
-

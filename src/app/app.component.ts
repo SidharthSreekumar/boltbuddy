@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 
 import { ThemeService } from './services/theme/theme.service';
 import { LightningCardComponent } from './components/lightning-card/lightning-card.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ import { LightningCardComponent } from './components/lightning-card/lightning-ca
 export class AppComponent {
   isLightMode: boolean = false;
 
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService, public dialog: MatDialog) {}
 
   /**
    * Toggle the theme
@@ -39,4 +40,7 @@ export class AppComponent {
     this.isLightMode = !this.isLightMode;
     this.themeService.isLightModeSignal.set(this.isLightMode);
   }
+  openSettingsDialog() {
+
+  };
 }

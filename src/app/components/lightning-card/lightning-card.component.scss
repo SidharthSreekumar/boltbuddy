@@ -6,4 +6,10 @@
   &-content {
     min-height: 10rem;
   }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+  }
 }

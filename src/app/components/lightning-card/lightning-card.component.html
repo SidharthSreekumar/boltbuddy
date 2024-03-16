@@ -5,20 +5,36 @@
     }
     <mat-card-header>
       <mat-card-title class="lit-card-title">Lightning Calculator</mat-card-title>
-      <mat-card-subtitle>Check how farm from you a lightning was struck!</mat-card-subtitle>
+      <mat-card-subtitle>Check how far from you a lightning was struck!</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
       <div class="lit-card-content">
-
+        <mat-form-field class="lit-card-content__form">
+          <mat-label>Current Temperature (Celsius)</mat-label>
+          <input matInput [formControl]="currentTemperature">
+          @if (currentTemperature.value) {
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="fetchTemperature(true)">
+            <mat-icon>replay_circle</mat-icon>
+          </button>
+          }
+        </mat-form-field>
+        <mat-divider></mat-divider>
+        <mat-card-title>Bolt Information</mat-card-title>
+        <h3>Time between light and sound: {{timeDifference / 1000}} s</h3>
+        <mat-divider></mat-divider>
+        <h3>Speed of sound: {{speedOfSound}} m/s</h3>
+        <mat-divider></mat-divider>
+        <h3>Storm distance: {{this.boltDistance}} m</h3>
+        <mat-divider></mat-divider>
       </div>
     </mat-card-content>
-    <mat-card-actions align="end" class="lit-card-actions">
+    <mat-card-actions class="lit-card-actions">
       @if (isLightning) {
       <button mat-raised-button color="primary" (click)="startWaiting()">Lightning <mat-icon inline="true"
           iconPositionEnd aria-label="Lightning icon">bolt</mat-icon></button>
       } @else {
-      <button mat-raised-button color="primary">Thunderclap <mat-icon inline="true" iconPositionEnd
-          aria-label="Thunderclap icon">spatial_audio</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="startWaiting(true)">Thunderclap <mat-icon inline="true"
+          iconPositionEnd aria-label="Thunderclap icon">spatial_audio</mat-icon></button>
       }
     </mat-card-actions>
   </mat-card>
