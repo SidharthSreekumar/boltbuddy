@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, WritableSignal, signal } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { WeatherData } from '../../shared/models/weatherdata.model';
-import { environment } from '../../../environments/environment.development';
+import { environment } from '../../../environments/environment';
 import { SettingsService } from '../settings/settings.service';
 
 @Injectable({
