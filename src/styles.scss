@@ -1,1 +1,51 @@
-/* You can add global styles to this file, and also import other style files */
+/*Material Theme Settings*/
+
+@use "@angular/material" as mat;
+
+@include mat.core();
+
+// Dark Theme
+
+$dark-theme: mat.define-dark-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$amber-palette, $default: 500),
+      accent: mat.define-palette(mat.$green-palette, $default: 400),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+// Light Theme
+$light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: mat.define-palette(mat.$green-palette, $default: 500),
+      accent: mat.define-palette(mat.$amber-palette, $default: 400),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+  )
+);
+
+// Apply the dark theme by default
+@include mat.all-component-colors($dark-theme);
+
+// !TODO Add the @mixin (prefers-color-scheme: light) functionality
+// Apply the light theme only when the user prefers light themes.
+.light-theme {
+  // Use the `-color` mixins to only apply color styles without reapplying the same
+  @include mat.all-component-colors($light-theme);
+}
+
+/* Material Theming Ends*/
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}

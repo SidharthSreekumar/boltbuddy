@@ -1,0 +1,16 @@
+.lit-card {
+  width: 90%;
+  max-width: 600px;
+  margin-inline: auto;
+  margin-top: 1rem;
+
+  &-content {
+    min-height: 10rem;
+  }
+
+  &-actions {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+  }
+}
