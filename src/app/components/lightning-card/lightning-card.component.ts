@@ -65,9 +65,9 @@ export class LightningCardComponent implements OnInit, OnDestroy {
 
       this.currentTempUnit = this.settingsService.currentUnitTypeSignal();
       this.currentTempSymbol = this.settingsService.getUnitSymbol();
+      // !TODO Look into this. Calling twice.
+      this.fetchTemperature();
     });
-
-    effect(() => {});
 
     this.currentTemperature.valueChanges.subscribe((value) => {
       if (this.currentTemperature.dirty) {
