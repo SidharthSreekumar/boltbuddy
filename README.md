@@ -1,6 +1,8 @@
 # Bolt⚡Buddy
 
-Bolt⚡Buddy is a PWA app that calculates the distance at which a lightning strikes based on the delay between the lightning and the thunder. 
+Bolt⚡Buddy is a PWA app that calculates the distance at which lightning strikes based on the delay between the lightning and the thunder. The app also takes into account the local temperature for calculation. Hence, location permission requirements. 
+
+Latest release link: [BoltBuddy](https://boltbuddy.netlify.app/)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.10.
 
@@ -27,3 +29,7 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Note
+
+If testing live production deployment, wait a few seconds for the node.js server to spin up. If it's still not working, the service might be temporarily suspended.
