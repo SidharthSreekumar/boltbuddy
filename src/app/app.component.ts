@@ -1,4 +1,4 @@
-import { Component, effect } from '@angular/core';
+import { Component, OnInit, effect } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
@@ -10,6 +10,9 @@ import { MatButtonModule } from '@angular/material/button';
 import { ThemeService } from './services/theme/theme.service';
 import { LightningCardComponent } from './components/lightning-card/lightning-card.component';
 import { MatDialog } from '@angular/material/dialog';
+import { SettingsDialogComponent } from './components/settings-dialog/settings-dialog.component';
+import { SettingsService } from './services/settings/settings.service';
+import { SettingsData } from './shared/models/settingsdata.model';
 
 @Component({
   selector: 'app-root',
@@ -26,21 +29,37 @@ import { MatDialog } from '@angular/material/dialog';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   isLightMode: boolean = false;
 
-  constructor(private themeService: ThemeService, public dialog: MatDialog) {}
 
-  /**
-   * Toggle the theme
-   *
-   * @returns void
-   */
-  toggleTheme() {
-    this.isLightMode = !this.isLightMode;
-    this.themeService.isLightModeSignal.set(this.isLightMode);
+  constructor(
+    private settingsService: SettingsService,
+    public dialog: MatDialog,
+    private themeService: ThemeService
+  ) {}
+
+  ngOnInit(): void {
+    this.themeService.toggleTheme(this.settingsService.isLightModeSignal());
   }
-  openSettingsDialog() {
 
-  };
+  openSettingsDialog() {
+    let dialogRef = this.dialog.open(SettingsDialogComponent, {
+      width: '90%',
+      maxWidth: '600px',
+      data: {
+        isLightMode: this.settingsService.isLightModeSignal(),
+        units: this.settingsService.currentUnitTypeSignal(),
+      },
+    });
+
+    dialogRef.afterClosed().subscribe((data: SettingsData ) => {
+      if(data) {
+         this.settingsService.currentUnitTypeSignal.set(data.units);
+         this.settingsService.isLightModeSignal.set(data.isLightMode);
+      }
+    });
+  }
+
+
 }

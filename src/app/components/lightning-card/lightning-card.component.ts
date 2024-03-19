@@ -7,11 +7,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LocationService } from '../../services/location/location.service';
 import { SoundService } from '../../services/sound/sound.service';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { Subscription } from 'rxjs';
+import { SettingsService } from '../../services/settings/settings.service';
+import { units } from '../../shared/models/settingsdata.model';
 
 @Component({
   selector: 'app-lightning-card',
@@ -25,6 +28,7 @@ import { Subscription } from 'rxjs';
     MatInputModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatSnackBarModule,
   ],
   templateUrl: './lightning-card.component.html',
   styleUrl: './lightning-card.component.scss',
@@ -35,6 +39,8 @@ export class LightningCardComponent implements OnInit, OnDestroy {
   isTempOverride: boolean = false;
   timeKeeper: Date = new Date();
   currentTemperature = new FormControl<number>(0);
+  currentTempUnit: units = 'metric';
+  currentTempSymbol: string = '';
   timeDifference: number = 0;
   boltDistance: number = 0;
   getCurrentPosition$?: Subscription;
@@ -42,15 +48,26 @@ export class LightningCardComponent implements OnInit, OnDestroy {
 
   constructor(
     private locationService: LocationService,
-    private soundService: SoundService
+    private soundService: SoundService,
+    private settingsService: SettingsService,
+    private snackBar: MatSnackBar
   ) {
     effect(() => {
+      /**
+       * If user has not overridden the temperature value,
+       * set the temp from OpenWeatherMap API.
+       */
       if (!this.isTempOverride) {
         this.currentTemperature.setValue(
           this.locationService.currentTemperature()
         );
       }
+
+      this.currentTempUnit = this.settingsService.currentUnitTypeSignal();
+      this.currentTempSymbol = this.settingsService.getUnitSymbol();
     });
+
+    effect(() => {});
 
     this.currentTemperature.valueChanges.subscribe((value) => {
       if (this.currentTemperature.dirty) {
@@ -61,6 +78,7 @@ export class LightningCardComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    // Sets temperature on initial load.
     this.fetchTemperature();
   }
 
@@ -87,24 +105,44 @@ export class LightningCardComponent implements OnInit, OnDestroy {
       this.isLightning = true;
     }
   }
-
+  /**
+   * Gets temperature based on user location
+   * @param refresh if user clicked in refresh button next to temperature
+   */
   fetchTemperature(refresh: boolean = false) {
     if (refresh) this.isTempOverride = false;
     this.getCurrentPosition$ = this.locationService
       .getCurrentPosition()
-      .subscribe((position) => {
-        this.locationService
-          .getCurrentTemperature(
-            position.coords.latitude,
-            position.coords.longitude,
-            'metric'
-          )
-          .subscribe((temp) => {
-            this.locationService.currentTemperature.set(temp);
-            this.currentTemperature.setValue(
-              this.locationService.currentTemperature()
-            );
-          });
+      .subscribe({
+        next: (position) => {
+          this.locationService
+            .getCurrentTemperature(
+              position.coords.latitude,
+              position.coords.longitude
+            )
+            .subscribe({
+              next: (temp) => {
+                this.locationService.currentTemperature.set(temp);
+                this.currentTemperature.setValue(
+                  this.locationService.currentTemperature()
+                );
+              },
+              error: () => {
+                this.snackBar.open(
+                  'Unable to fetch current temperature! Enter manually.',
+                  'OK',
+                  {
+                    duration: 3000, // 3 sec
+                  }
+                );
+              }
+            });
+        },
+        error: (error) => {
+          this.snackBar.open('Unable to fetch location! Enter temperature manually.', 'OK', {
+            duration: 3000 // 3 sec
+          })
+        },
       });
   }
 

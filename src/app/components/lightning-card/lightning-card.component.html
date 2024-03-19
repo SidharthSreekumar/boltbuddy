@@ -10,7 +10,7 @@
     <mat-card-content>
       <div class="lit-card-content">
         <mat-form-field class="lit-card-content__form">
-          <mat-label>Current Temperature (Celsius)</mat-label>
+          <mat-label>Current Temperature ({{currentTempSymbol}})</mat-label>
           <input matInput [formControl]="currentTemperature">
           @if (currentTemperature.value) {
           <button matSuffix mat-icon-button aria-label="Clear" (click)="fetchTemperature(true)">

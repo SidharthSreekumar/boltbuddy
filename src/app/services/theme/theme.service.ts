@@ -7,19 +7,19 @@ import {
   effect,
   signal,
 } from '@angular/core';
+import { SettingsService } from '../settings/settings.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ThemeService {
-  isLightModeSignal: WritableSignal<boolean> = signal(false);
-
   constructor(
+    private settingsService: SettingsService,
     private renderer: Renderer2,
     @Inject(DOCUMENT) private document: Document
   ) {
     effect(() => {
-      this.toggleTheme(this.isLightModeSignal());
+      this.toggleTheme(this.settingsService.isLightModeSignal());
     });
   }
 

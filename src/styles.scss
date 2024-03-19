@@ -21,36 +21,22 @@ $dark-theme: mat.define-dark-theme(
 $light-theme: mat.define-light-theme(
   (
     color: (
-      primary: mat.define-palette(mat.$green-palette),
-      accent: mat.define-palette(mat.$amber-palette),
+      primary: mat.define-palette(mat.$green-palette, $default: 500),
+      accent: mat.define-palette(mat.$amber-palette, $default: 400),
     ),
+    typography: mat.define-typography-config(),
+    density: 0,
   )
 );
 
 // Apply the dark theme by default
-@include mat.core-color($dark-theme);
-@include mat.button-color($dark-theme);
-@include mat.toolbar-color($dark-theme);
-@include mat.icon-color($dark-theme);
-@include mat.card-color($dark-theme);
-@include mat.divider-color($dark-theme);
-@include mat.progress-bar-color($dark-theme);
-@include mat.form-field-color($dark-theme);
+@include mat.all-component-colors($dark-theme);
 
 // !TODO Add the @mixin (prefers-color-scheme: light) functionality
 // Apply the light theme only when the user prefers light themes.
 .light-theme {
   // Use the `-color` mixins to only apply color styles without reapplying the same
-  // typography and density styles.
-  @include mat.core-color($light-theme);
-  @include mat.toolbar-color($light-theme);
-  @include mat.button-color($light-theme);
-  @include mat.icon-color($light-theme);
-  @include mat.divider-color($light-theme);
-
-  @include mat.card-color($light-theme);
-  @include mat.progress-bar-color($light-theme);
-  @include mat.form-field-color($light-theme);
+  @include mat.all-component-colors($light-theme);
 }
 
 /* Material Theming Ends*/
