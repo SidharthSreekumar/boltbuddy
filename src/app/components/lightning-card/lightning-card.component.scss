@@ -6,11 +6,34 @@
 
   &-content {
     min-height: 10rem;
+
+    &__form {
+      margin-top: 0.8rem;
+    }
+
+    &__info {
+      display: flex;
+      flex-direction: column;
+
+      margin-top: 0.8rem;
+
+      span {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+      }
+    }
   }
 
   &-actions {
     display: flex;
     flex-direction: column;
     justify-self: center;
+    margin-bottom: 3rem;
+    position: relative;
+
+    .button-msg {
+      position: absolute;
+      top: 3rem;
+    }
   }
 }

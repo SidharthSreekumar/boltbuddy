@@ -10,22 +10,21 @@
     <mat-card-content>
       <div class="lit-card-content">
         <mat-form-field class="lit-card-content__form">
-          <mat-label>Current Temperature ({{currentTempSymbol}})</mat-label>
+          <mat-label>Temperature ({{currentTempSymbol}})</mat-label>
           <input matInput [formControl]="currentTemperature">
           @if (currentTemperature.value) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="fetchTemperature(true)">
+          <button matSuffix mat-icon-button aria-label="Reloads temperature" (click)="fetchTemperature(true)">
             <mat-icon>replay_circle</mat-icon>
           </button>
           }
         </mat-form-field>
         <mat-divider></mat-divider>
-        <mat-card-title>Bolt Information</mat-card-title>
-        <h3>Time between light and sound: {{timeDifference / 1000}} s</h3>
-        <mat-divider></mat-divider>
-        <h3>Speed of sound: {{speedOfSound}} m/s</h3>
-        <mat-divider></mat-divider>
-        <h3>Storm distance: {{this.boltDistance}} m</h3>
-        <mat-divider></mat-divider>
+        <div class="lit-card-content__info">
+          <mat-card-title>Bolt Information</mat-card-title>
+          <span>Time between light and sound: {{timeDifference / 1000}} s</span>
+          <span>Speed of sound: {{speedOfSound}} m/s</span>
+          <span>Storm distance: {{this.boltDistance}} m</span>
+        </div>
       </div>
     </mat-card-content>
     <mat-card-actions class="lit-card-actions">
@@ -35,6 +34,7 @@
       } @else {
       <button mat-raised-button color="primary" (click)="startWaiting(true)">Thunderclap <mat-icon inline="true"
           iconPositionEnd aria-label="Thunderclap icon">spatial_audio</mat-icon></button>
+      <p class="button-msg">Press the button again to calculate distance<br>The button will reset after 15 seconds</p>
       }
     </mat-card-actions>
   </mat-card>

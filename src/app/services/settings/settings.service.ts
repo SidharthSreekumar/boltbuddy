@@ -7,6 +7,9 @@ import { LocalStorageService } from 'ngx-webstorage';
 })
 export class SettingsService {
   isLightModeSignal: WritableSignal<boolean> = signal(this.storage.retrieve('isLightMode') ?? false);
+  /**
+   * Expected values are standard, metric or imperial
+   */
   currentUnitTypeSignal: WritableSignal<units> = signal(this.storage.retrieve('unitType') ?? 'metric'); // standard, metric, imperial
 
   constructor(private storage: LocalStorageService) {
@@ -16,6 +19,11 @@ export class SettingsService {
     })
   }
 
+  /**
+   * Provides unit symbol based on selected unit type
+   *
+   * @returns {string} unit symbol
+   */
   getUnitSymbol(): string {
     switch (this.currentUnitTypeSignal()) {
       case 'standard':

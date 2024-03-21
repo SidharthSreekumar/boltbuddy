@@ -1,12 +1,13 @@
-<h2 mat-dialog-title>Settings</h2>
+<p mat-dialog-title>Settings</p>
 <mat-dialog-content class="settings-panel">
   <form [formGroup]="settingsForm">
-    <div>
-      <h2 class="settings-panel__section-headings">Choose color theme</h2>
-      <mat-slide-toggle formControlName="isLightMode" color="primary" disableRipple="true" labelPosition="before">Enable Light
-        Mode &nbsp;</mat-slide-toggle>
-    </div>
-    <h2 class="settings-panel__section-headings">Temperature unit</h2>
+
+    <p class="settings-panel__section-headings">Choose color theme</p>
+    <mat-slide-toggle formControlName="isLightMode" color="primary" disableRipple="true" labelPosition="before">Enable
+      Light
+      Mode &nbsp;</mat-slide-toggle>
+
+    <p class="settings-panel__section-headings">Temperature unit</p>
     <mat-button-toggle-group formControlName="units" aria-label="Temperature unit">
       <mat-button-toggle value="metric">Metric</mat-button-toggle>
       <mat-button-toggle value="imperial">Imperial</mat-button-toggle>
@@ -15,6 +16,6 @@
   </form>
   <mat-dialog-actions align="end">
     <button mat-raised-button (click)="cancel()">Cancel</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Save</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="data">Save</button>
   </mat-dialog-actions>
 </mat-dialog-content>

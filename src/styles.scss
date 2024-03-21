@@ -11,6 +11,7 @@ $dark-theme: mat.define-dark-theme(
     color: (
       primary: mat.define-palette(mat.$amber-palette, $default: 500),
       accent: mat.define-palette(mat.$green-palette, $default: 400),
+      warn: mat.define-palette(mat.$red-palette, $default: 500),
     ),
     typography: mat.define-typography-config(),
     density: 0,
@@ -23,6 +24,7 @@ $light-theme: mat.define-light-theme(
     color: (
       primary: mat.define-palette(mat.$green-palette, $default: 500),
       accent: mat.define-palette(mat.$amber-palette, $default: 400),
+      warn: mat.define-palette(mat.$red-palette, $default: 500),
     ),
     typography: mat.define-typography-config(),
     density: 0,
@@ -48,4 +50,35 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+/* Material Component Styling */
+
+// MatSnackBar
+.dark-theme {
+  .bolt-snackbar__warn {
+    .mdc-snackbar__surface {
+      background-color: mat.get-theme-color($dark-theme, warn, 400);
+    }
+    .mat-mdc-snack-bar-label.mdc-snackbar__label {
+      color: black;
+    }
+  }
+}
+
+.light-theme {
+  .bolt-snackbar__warn {
+    .mdc-snackbar__surface {
+      background-color: mat.get-theme-color($light-theme, warn, 900);
+    }
+    .mat-mdc-snack-bar-label.mdc-snackbar__label {
+      color: white;
+    }
+  }
+}
+
+
+// MatToolBar
+.lit-menu.mat-toolbar-single-row {
+  padding-left: 0;
 }

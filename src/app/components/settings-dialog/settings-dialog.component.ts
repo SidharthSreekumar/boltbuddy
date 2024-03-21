@@ -50,7 +50,7 @@ export class SettingsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
+    // Updates previous setting values
     this.settingsForm.patchValue({
       isLightMode: this.data.isLightMode ?? false,
       units: this.data.units ?? 'metric',

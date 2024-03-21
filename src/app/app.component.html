@@ -1,10 +1,10 @@
 <mat-toolbar class="lit-menu">
   <div class="lit-menu-title">
-    <span>Bolt</span><mat-icon aria-label="Lightning icon">bolt</mat-icon><span>Buddy</span>
+    <div class="lit-menu-title__logo"><img class="lit-menu-title__logo--img" src="../assets/logo/BB-full-cropped.png" alt="Bolt Buddy logo"></div>
   </div>
   <span class="lit-menu-spacer"></span>
   <button mat-icon-button (click)="openSettingsDialog()" aria-label="Settings icon">
     <mat-icon>settings</mat-icon>
   </button>
 </mat-toolbar>
-<app-lightning-card></app-lightning-card>
+<app-lightning-card [isLoading]="isLoading"></app-lightning-card>

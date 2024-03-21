@@ -1,4 +1,9 @@
 .settings-panel {
+  p.mat-mdc-dialog-title.mdc-dialog__title {
+    margin-bottom: 0;
+  }
   &__section-headings {
+    font-size: 1.2rem;
+    margin: 0;
   }
 }
