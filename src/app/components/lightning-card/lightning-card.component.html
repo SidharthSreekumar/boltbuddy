@@ -9,32 +9,38 @@
     </mat-card-header>
     <mat-card-content>
       <div class="lit-card-content">
-        <mat-form-field class="lit-card-content__form">
-          <mat-label>Current Temperature ({{currentTempSymbol}})</mat-label>
+        <mat-form-field class="lit-card-content__form--field">
+          <mat-label>Temperature ({{currentTempSymbol}})</mat-label>
           <input matInput [formControl]="currentTemperature">
           @if (currentTemperature.value) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="fetchTemperature(true)">
+          <button [disabled]="isLoading" matSuffix mat-icon-button aria-label="Reloads temperature" (click)="fetchTemperature(true)">
             <mat-icon>replay_circle</mat-icon>
           </button>
           }
         </mat-form-field>
         <mat-divider></mat-divider>
-        <mat-card-title>Bolt Information</mat-card-title>
-        <h3>Time between light and sound: {{timeDifference / 1000}} s</h3>
-        <mat-divider></mat-divider>
-        <h3>Speed of sound: {{speedOfSound}} m/s</h3>
-        <mat-divider></mat-divider>
-        <h3>Storm distance: {{this.boltDistance}} m</h3>
-        <mat-divider></mat-divider>
+        <div class="lit-card-content__info">
+          <mat-card-title>Bolt Details</mat-card-title>
+          <mat-card-subtitle>Time between light and sound: {{ (timeDifference > 0) ? (timeDifference / 1000).toFixed(2) + ' s'
+            : 'Not Available'}}</mat-card-subtitle>
+          <mat-card-subtitle>Speed of sound: {{getSoundSpeedString(speedOfSound)}}</mat-card-subtitle>
+          <mat-card-subtitle>Storm distance: {{getBoltDistanceString(boltDistance)}}</mat-card-subtitle>
+        </div>
       </div>
     </mat-card-content>
     <mat-card-actions class="lit-card-actions">
       @if (isLightning) {
-      <button mat-raised-button color="primary" (click)="startWaiting()">Lightning <mat-icon inline="true"
-          iconPositionEnd aria-label="Lightning icon">bolt</mat-icon></button>
+      <button mat-raised-button color="primary" (click)="startWaiting()">Flash <mat-icon inline="true" iconPositionEnd
+          aria-label="Lightning icon">bolt</mat-icon></button>
+      <p class="button-msg">Press the button when you see the flash.</p>
+
       } @else {
       <button mat-raised-button color="primary" (click)="startWaiting(true)">Thunderclap <mat-icon inline="true"
           iconPositionEnd aria-label="Thunderclap icon">spatial_audio</mat-icon></button>
+      <div class="button-msg">
+        <p>Press the button when you hear the thunderclap</p>
+        <p>The button will reset after 15 seconds</p>
+      </div>
       }
     </mat-card-actions>
   </mat-card>

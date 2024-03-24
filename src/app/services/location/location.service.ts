@@ -12,7 +12,11 @@ export class LocationService {
   currentTemperature: WritableSignal<number> = signal(0);
   constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
-  getCurrentPosition(): Observable<any> {
+  /**
+   * Fetches the current location coordinates
+   * @returns {GeolocationPosition} position
+   */
+  getCurrentPosition(): Observable<GeolocationPosition> {
     return new Observable((observer) => {
       if ('geolocation' in navigator) {
         navigator.geolocation.getCurrentPosition(
@@ -30,6 +34,13 @@ export class LocationService {
     });
   }
 
+  /**
+   * Fetches the temperature based on given location information from OpenWeatherMapAPI
+   *
+   * @param latitude latitude
+   * @param longitude longitude
+   * @returns {number} temperature
+   */
   getCurrentTemperature(
     latitude: number,
     longitude: number

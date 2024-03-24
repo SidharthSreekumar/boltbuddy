@@ -12,12 +12,12 @@ import {
 } from '@angular/material/dialog';
 import {
   FormBuilder,
-  FormControl,
   FormGroup,
   ReactiveFormsModule,
 } from '@angular/forms';
 import { SettingsService } from '../../services/settings/settings.service';
 import { SettingsData } from '../../shared/models/settingsdata.model';
+import { MatCardModule } from '@angular/material/card';
 
 @Component({
   selector: 'app-settings-dialog',
@@ -27,6 +27,7 @@ import { SettingsData } from '../../shared/models/settingsdata.model';
     MatButtonToggleModule,
     MatDialogActions,
     MatDialogContent,
+    MatCardModule,
     MatDialogClose,
     MatButtonModule,
     MatDialogTitle,
@@ -39,8 +40,8 @@ import { SettingsData } from '../../shared/models/settingsdata.model';
 })
 export class SettingsDialogComponent implements OnInit {
   settingsForm: FormGroup = this.fb.group({
-    isLightMode: null,
-    units: null,
+    isLightMode: false,
+    units: '',
   });
 
   constructor(
@@ -50,7 +51,7 @@ export class SettingsDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-
+    // Updates previous setting values
     this.settingsForm.patchValue({
       isLightMode: this.data.isLightMode ?? false,
       units: this.data.units ?? 'metric',
