@@ -1,13 +1,9 @@
 <p mat-dialog-title>Settings</p>
 <mat-dialog-content class="settings-panel">
   <form [formGroup]="settingsForm">
-
-    <p class="settings-panel__section-headings">Choose color theme</p>
-    <mat-slide-toggle formControlName="isLightMode" color="primary" disableRipple="true" labelPosition="before">Enable
-      Light
-      Mode &nbsp;</mat-slide-toggle>
-
-    <p class="settings-panel__section-headings">Temperature unit</p>
+    <h3 class="settings-panel__h3">Choose color theme</h3>
+    <mat-slide-toggle formControlName="isLightMode" color="primary" disableRipple="true" labelPosition="before"><span>Light Mode</span></mat-slide-toggle>
+    <h3 class="settings-panel__h3">Measurement unit</h3>
     <mat-button-toggle-group formControlName="units" aria-label="Temperature unit">
       <mat-button-toggle value="metric">Metric</mat-button-toggle>
       <mat-button-toggle value="imperial">Imperial</mat-button-toggle>

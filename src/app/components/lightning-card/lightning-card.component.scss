@@ -8,7 +8,10 @@
     min-height: 10rem;
 
     &__form {
-      margin-top: 0.8rem;
+      &--field {
+        margin-top: 0.8rem;
+        width: 10rem;
+      }
     }
 
     &__info {
@@ -34,6 +37,10 @@
     .button-msg {
       position: absolute;
       top: 3rem;
+      text-align: center;
+      p {
+        margin-bottom: 0;
+      }
     }
   }
 }

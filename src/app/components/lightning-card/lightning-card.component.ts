@@ -1,12 +1,4 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnDestroy,
-  OnInit,
-  SimpleChanges,
-  effect,
-} from '@angular/core';
+import { Component, Input, OnInit, effect } from '@angular/core';
 // Material Imports
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -55,6 +47,7 @@ export class LightningCardComponent implements OnInit {
   boltDistance: number = 0;
   getCurrentPosition$?: Subscription;
   speedOfSound: number = 0;
+  buttonTimerRef!: NodeJS.Timeout; // Button timeout reference
 
   constructor(
     private locationService: LocationService,
@@ -97,15 +90,14 @@ export class LightningCardComponent implements OnInit {
    * @param isStopping if true, button was pressed 2 times.
    */
   startWaiting(isStopping: boolean = false) {
-    let buttonTimer; // Timeout reference
     if (!isStopping) {
       this.timeKeeper = new Date();
       this.isLightning = false;
-      buttonTimer = setTimeout(() => {
+      this.buttonTimerRef = setTimeout(() => {
         this.isLightning = true;
       }, 15000); // Resets the state of button after 15 seconds.
     } else {
-      if (buttonTimer) clearTimeout(buttonTimer);
+      if (this.buttonTimerRef) clearTimeout(this.buttonTimerRef);
       this.timeDifference = new Date().getTime() - this.timeKeeper.getTime();
       this.boltDistance = Math.floor(
         (this.soundService.getSpeed() * this.timeDifference) / 1000
@@ -162,5 +154,43 @@ export class LightningCardComponent implements OnInit {
           );
         },
       });
+  }
+
+  /**
+   * Returns the storm distance string based on current unit and size
+   *
+   * @param distance Distance at which the lightning struck
+   * @returns {string} Modified distance value with unit
+   */
+  getBoltDistanceString(distance: number) {
+    if (!distance) return 'Not Available';
+    if (distance >= 1000) {
+      if (this.settingsService.currentUnitTypeSignal() === 'imperial') {
+        return (distance / 1609).toFixed(2).toString() + ' mi'; // convert to miles
+      } else {
+        return (distance / 1000).toFixed(2).toString() + ' km';
+      }
+    } else {
+      if (this.settingsService.currentUnitTypeSignal() === 'imperial') {
+        return (distance * 3.281).toFixed(2).toString() + ' ft'; //  convert to feet
+      } else {
+        return (distance).toFixed(2).toString() + ' m';
+      }
+    }
+  }
+
+  /**
+   * Returns the speed of sound based on current unit
+   *
+   * @param speed Speed of sound in meter per second
+   * @returns Modified speed value with unit
+   */
+  getSoundSpeedString(speed: number) {
+    if (!speed) return 'Not Available';
+    if (this.settingsService.currentUnitTypeSignal() === 'imperial') {
+      return (speed * 3.281).toFixed(2).toString() + '  ft/s'; // convert to feet
+    } else {
+      return (speed).toFixed(2).toString() + ' m/s';
+    }
   }
 }
